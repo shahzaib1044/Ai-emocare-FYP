@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Chatbot</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="static/css/style.css"/>
+</head>
+<body>
+    <div id="myChatbt">
+        <div class="container-fluid h-105" style="width:1300px;">
+            <div class="row justify-content-center h-110">
+                <div class="col-xl-12 col-xl-12 chat">
+                    <div class="card">
+                        <div class="card-header msg_head">
+                            <div class="d-flex bd-highlight">
+                                <div class="img_cont">
+                                    <img src="static/img/logo.png" class="rounded-circle user_img">
+                                    <span class="online_icon"></span>
+                                </div>
+                                <div class="user_info">
+                                    <span>ChatBot</span>
+                                    <p>Ask me About Your Mental Health!</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div id="messageFormeight" class="card-body msg_card_body" style="width: 76rem;">
+                            <div class="d-flex justify-content-start mb-4">
+                                <div class="img_cont_msg">
+                                    <img src="static/img/favicon.ico" class="rounded-circle user_img_msg">
+                                </div>
+                                <div class="msg_cotainer">
+                                    <p>Hello!! What's on your mind today? Whether you're feeling stressed, anxious, or just need someone to talk to, I'm here to listen and offer support. Let's start by exploring what's been occupying your thoughts lately.</p>
+                                    <span class="msg_time"><div id="current_time"></div></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-footer">
+                            <form id="messageArea" class="input-group">
+                                <input type="text" id="text" name="msg" placeholder="Type your message..." autocomplete="off" class="form-control type_msg" required/>
+                                <div class="input-group-append">
+                                    <button type="submit" id="send" class="input-group-text send_btn"><i class="fas fa-location-arrow"></i></button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <script>
+                function getUserIdFromUrlUnique() {
+                    const urlSearchParams = new URLSearchParams(window.location.search);
+                    return urlSearchParams.get('objectId');
+                }
+
+                const userIdOfUser = getUserIdFromUrlUnique();
+                
+                document.addEventListener("DOMContentLoaded", function() {
+                    let chatbottext;
+                    const rawTextArray = [];
+                    let conversationHistory = [];
+                
+                    const messageArea = document.getElementById("messageArea");
+                    messageArea.addEventListener("submit", function(event) {
+                        // Prevent default form submission
+                        event.preventDefault();
+                
+                        const date = new Date();
+                        const hour = date.getHours();
+                        const minute = date.getMinutes();
+                        const str_time = hour + ":" + minute;
+                        
+                        const rawText = document.getElementById("text").value;
+                
+                        if (!rawText) {
+                            alert("Please enter a message");
+                            return;
+                        }
+                
+                        conversationHistory.push({ role: 'user', content: rawText });
+                        console.log("Conversation History:", conversationHistory);
+                
+                        rawTextArray.push(rawText);
+                        console.log("Raw Text Array:", rawTextArray);
+                
+                        const userHtml = `
+                          <div class="d-flex justify-content-end mb-4">
+                            <div class="msg_cotainer_send">${rawText}<span class="msg_time_send">${str_time}</span></div>
+                            <div class="img_cont_msg"><img src="static/img/favicon.ico" class="rounded-circle user_img_msg"></div>
+                          </div>`;
+                
+                        document.getElementById("text").value = ""; // Clear the input field
+                        document.getElementById("messageFormeight").appendChild(createHTMLElement(userHtml));
+                
+                        fetch('https://mental-health-backend-one.vercel.app/messages', {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json'
+                            },
+                            body: JSON.stringify({
+                                userId: userIdOfUser,
+                                message: rawText,
+                                sender: "user"
+                            })
+                        })
+                        .then(response => {
+                            if (response.ok) {
+                                console.log('User message submitted successfully!');
+                            } else {
+                                console.log('Error submitting user message!');
+                            }
+                        });
+                
+                        fetch('https://shahzaib201-carl-llama-13b.hf.space/llm_on_cpu', {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json'
+                            },
+                            body: JSON.stringify({ prompt: rawText })
+                        })
+                        .then(response => {
+                            if (!response.ok) {
+                                throw new Error('Network response was not ok');
+                            }
+                            return response.json();
+                        })
+                        .then(data => {
+                            console.log("Response Data:", data);
+                            chatbottext = data;
+                
+                            conversationHistory.push({ role: 'assistant', content: data });
+                
+                            const botHtml = `
+                              <div class="d-flex justify-content-start mb-4">
+                                <div class="img_cont_msg"><img src="static/img/favicon.ico" class="rounded-circle user_img_msg"></div>
+                                <div class="msg_cotainer">${data}<span class="msg_time">${str_time}</span></div>
+                              </div>`;
+                
+                            document.getElementById("messageFormeight").appendChild(createHTMLElement(botHtml));
+                
+                            fetch('https://mental-health-backend-one.vercel.app/messages', {
+                                method: 'POST',
+                                headers: {
+                                    'Content-Type': 'application/json'
+                                },
+                                body: JSON.stringify({
+                                    userId: userIdOfUser,
+                                    message: chatbottext,
+                                    sender: "assistant"
+                                })
+                            })
+                            .then(response => {
+                                if (response.ok) {
+                                    console.log('Assistant message submitted successfully!');
+                                } else {
+                                    console.log('Error submitting assistant message!');
+                                }
+                            });
+                        })
+                        .catch(error => {
+                            console.error('Error sending prompt:', error);
+                            alert("There was an error sending your message. Please try again later.");
+                        });
+                    });
+                
+                    console.log("Raw Text Array Initialized:", rawTextArray);
+                });
+                
+                function createHTMLElement(htmlString) {
+                    const parser = new DOMParser();
+                    const doc = parser.parseFromString(htmlString, 'text/html');
+                    return doc.body.firstChild;
+                }
+            </script>
+</body>
+</html>

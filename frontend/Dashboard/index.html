@@ -1,0 +1,1718 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
+      integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <link rel="stylesheet" href="style.css" />
+    <title>Dashboard</title>
+  </head>
+  <body>
+    <div class="admin-dashboard-container">
+      <div class="admin-dashboard">
+        <div class="admin-dash-side-menu">
+          <div class="logo-div">
+            <img class="logo-img" src="logo.png" alt="" />
+            <h2 class="logo-heading">Emocare</h2>
+          </div>
+          <div class="dashboard-links">
+            <div class="link">
+              <div class="link-flex" onclick="homeButton()">
+                <div class="link-logo">
+                  <i class="fa-solid fa-house-chimney"></i>
+                </div>
+                <div class="link-text">
+                  <p>Home</p>
+                </div>
+              </div>
+             
+              <div class="link-flex" onclick="communityButton()">
+                <div class="link-logo">
+                  <i class="fa-brands fa-elementor"></i>
+                </div>
+                <div class="link-text">
+                  <p>Community </p>
+                </div>
+              </div>
+              <div class="link-flex" onclick="chatShow()">
+                <div class="link-logo">
+                  <i class="fa-solid fa-comment-medical"></i>
+                </div>
+                <div class="link-text">
+                  <p>Chatbot</p>
+                </div>
+              </div>
+              <div class="link-flex" onclick="editButton()" style="cursor:pointer;">
+                <div class="link-logo">
+                  <i class="fa-sharp fa-solid fa-newspaper"></i>
+                </div>
+                <div class="link-text">
+                  <p>Edit Profile</p>
+                </div>
+              </div>
+			   <div class="link-flex" onclick="chatHistoryButton()" style="cursor:pointer;">
+                <div class="link-logo">
+                  <i class="fa-sharp fa-solid fa-comments"></i>
+                </div>
+                <div class="link-text">
+                  <p>Chat History</p>
+                </div>
+              </div>
+             
+              <div class="link-flex">
+                <div class="link-logo">
+                  <i class="fa-sharp fa-solid fa-user"></i>
+                </div>
+                <div class="link-text">
+                 <a href="../index.html" style="text-decoration:none;"><p>Logout</p></a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+
+        <div class="admin-dash-render-data">
+
+          <nav class="navbar">
+            <div class="nav-maindiv">
+                <div class="left-div">
+                    <i class="fa-sharp fa-solid fa-bars"></i>
+                 </div>
+                 <div class="right-div">
+               <!--     <i class="fa-sharp fa-solid fa-bell" style="color: #acaeae;"></i>
+                    <sup class="notify-sup">3</sup>
+                    <i class="fa-solid fa-envelope" style="color: #acaeae;"></i> 
+                    <sup class="email-sup">2</sup> 
+                    <i class="fa-sharp fa-solid fa-gear" style="color: #acaeae;"></i> 
+					  <i class="fa-solid fa-user user" style="color: black; margin-left: .8rem;"></i> -->
+					 <div style="display:flex; gap:15px;"> <div class="imgwrap"><img  id="userimg"></div>
+					  <span id="username" style="margin-top:5px;"></span></div>
+                  
+                 </div>
+            </div>
+       
+          </nav>
+
+<style>
+	.imgwrap{
+		width:35px;
+		height:35px;
+		border-radius:50%;
+	}
+	.imgwrap img{
+		width:100%;
+		object-fit:cover;
+		border-radius:50%;
+	}
+</style>
+
+<script>
+</script>
+<style>
+	.forum{
+		width:100%;
+		display:flex;
+		justify-content:center;
+		align-items:center;
+		flex-direction:column;
+		
+	}
+	.forum h1{
+		margin:30px 0;
+		font-size:27px;
+	}
+	.forumInput input[type="text"]{
+		width:300px;
+		padding:10px;
+		border:2px solid crimson;
+	}
+	.forumInput input[type="submit"]{
+		padding:10px 30px;
+		background:crimson;
+		color:#fff;
+		border:none;
+		outline:none;
+	}
+	.forumDispay{
+		margin-top:40px;
+		display:flex;
+		justify-content:center;
+		align-items:center;
+		flex-direction:column;
+		width:50%;
+	}
+	.forumDispay .forumBox{
+		margin-top:50px;
+		display:flex;
+		justify-content:center;
+		align-items:center;
+		
+		flex-direction:column;
+		width:100%;
+		padding-bottom:20px;
+		border-bottom:1px solid crimson;
+	}
+	.forumDispay .forumBox .upper{
+		display:flex;
+		justify-content:space-between;
+		align-items:center;
+		width:100%;
+	}
+	.lower p{
+		text-align:justify;
+		margin-top:15px;
+	}
+</style>
+
+	<style>
+ .loading-div-forum {
+            position: fixed;
+            top: 5%;
+            left: 56%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+          font-weight:600;
+			color:#fff;
+			z-index:9999;
+			font-size:20px;
+			background:crimson;
+			padding:10px 20px;
+			box-shadow:0 5px 10px rgba(0,0,0,0.2);
+			display:none;
+			
+}
+#divTwo{
+	display:none;
+}
+
+</style>
+
+<div class="loading-div-forum" id="loading-div-forum">
+        Saving...
+    </div>
+
+
+
+
+
+<div class="forum" id="anxietyDiv" >
+<div style="background:#c0dbef; display:flex;justify-content:center;align-items:center; flex-direction:column; width:50%; padding:30px; border-radius:5px;
+margin-top:3%;position:relative;">
+  <button onClick="hidescreen()" class="absButton"><i class="fa fa-times"></i></button>
+<h1>Standard Guidelines for Reducing Anxiety!</h1>
+			<p style="text-align:justify; ">
+			Managing anxiety effectively involves a combination of lifestyle changes, mental health practices, and professional support. Regular physical exercise, such as running, yoga, or swimming, can help lower anxiety levels by releasing endorphins and reducing stress hormones. Practicing mindfulness and relaxation techniques, including meditation, deep breathing, and progressive muscle relaxation, can calm the mind and reduce anxiety symptoms. Maintaining a balanced diet, with an emphasis on whole foods, lean proteins, and healthy fats, supports overall brain health and emotional stability. Ensuring adequate sleep by sticking to a regular sleep schedule is crucial for reducing anxiety. Setting realistic expectations, breaking tasks into smaller steps, and managing time effectively can prevent feelings of being overwhelmed. Building a strong support network of friends, family, or support groups provides emotional reassurance and reduces feelings of isolation. Limiting caffeine and alcohol, which can exacerbate anxiety, is also beneficial. Finally, seeking professional help, such as therapy or counseling, provides tailored strategies for managing anxiety effectively.
+			
+			</p>
+		</div>
+</div>
+
+
+
+
+
+
+
+
+
+<div class="forum" id="depressionDiv" >
+<div style="background:#ebe0b4; display:flex;justify-content:center;align-items:center; flex-direction:column; width:50%; padding:30px; border-radius:5px;
+margin-top:3%;position:relative;">
+  <button onClick="hidescreen()" class="absButton"><i class="fa fa-times"></i></button>
+<h1>Standard Guidelines for Reducing Depression!</h1>
+			<p style="text-align:justify; ">
+			Addressing depression requires a multifaceted approach that includes lifestyle modifications, mental health practices, and professional intervention. Regular physical exercise, like walking, jogging, or yoga, can significantly improve mood by boosting endorphins and serotonin levels. Engaging in mindfulness and relaxation techniques, such as meditation and deep-breathing exercises, helps reduce negative thought patterns and promotes mental clarity. A balanced diet rich in nutrients, including omega-3 fatty acids, vitamins, and minerals, supports brain health and emotional stability. Ensuring consistent, quality sleep by maintaining a regular sleep schedule is vital for mood regulation. Setting small, achievable goals can help combat feelings of overwhelm and build a sense of accomplishment. Building and maintaining strong social connections with friends, family, or support groups provides emotional support and reduces isolation. Limiting alcohol and avoiding recreational drugs, which can worsen depression, is important. Seeking professional help, such as therapy or medication prescribed by a healthcare provider, offers specialized and effective treatment plans tailored to individual needs.
+			
+			</p>
+		</div>
+</div>
+
+
+
+
+
+
+<div class="forum" id="stressDiv" >
+<div style="background:#efc7b3; display:flex;justify-content:center;align-items:center; flex-direction:column; width:50%; padding:30px; border-radius:5px;
+margin-top:3%; position:relative;">
+  <button onClick="hidescreen()" class="absButton"><i class="fa fa-times"></i></button>
+<h1>Standard Guidelines for Reducing Stress!</h1>
+			<p style="text-align:justify; ">
+			Reducing stress effectively involves adopting a holistic approach encompassing physical, mental, and lifestyle strategies. Regular physical activity, such as walking, yoga, or strength training, is crucial as it helps to release endorphins, the body's natural stress relievers. Practicing mindfulness and relaxation techniques, including meditation and deep-breathing exercises, can significantly enhance mental well-being. Maintaining a healthy diet, rich in fruits, vegetables, and whole grains, supports overall health and resilience to stress. Establishing a consistent sleep schedule ensures adequate rest, which is vital for managing stress. Setting realistic goals, prioritizing tasks, and breaking them into manageable steps can alleviate feelings of overwhelm. Additionally, fostering strong social connections provides emotional support and a sense of belonging. Limiting exposure to stressors, such as reducing screen time and managing time effectively, further aids in stress reduction. Seeking professional help when necessary ensures access to specialized strategies for managing stress.
+			
+			</p>
+		</div>
+</div>
+
+
+
+<style> #stressDiv, #depressionDiv, #anxietyDiv, #healthDiv, #chatHistoryDiv{
+	display:none;
+}
+.absButton{
+	position:absolute;
+	top:20px;
+	right:30px;
+	background:none;
+	border:none;
+	outline:none;
+}
+.absButtonCommunity{
+	top:30px;
+	right:70px;
+	background:orange;
+	color:#fff;
+	cursor:pointer;
+	padding:8px 20px;
+	transition:0.2s ease;
+	
+}
+.absButtonCommunity:hover{
+	color:orange;
+	border:2px solid orange;
+	background:none;
+}
+.absButton i{
+	font-size:20px;
+	color:crimson;
+	cursor:pointer;
+}
+.absButton i:hover{
+	transform:scale(1.1);
+}
+#chatbotDiv{
+	display:none;
+}
+.chat {
+    width: 100%;
+    max-width: 900px;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    overflow-x: hidden;
+    display: flex;
+    flex-direction: column;
+	margin-top:5%;
+	}
+
+.card-header {
+    background-color: #007bff;
+    color: white;
+    padding: 15px;
+    display: flex;
+    align-items: center;
+}
+
+.card-header .img_cont {
+    position: relative;
+    margin-right: 10px;
+}
+
+.card-header .img_cont img {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+}
+
+.card-header .online_icon {
+    width: 10px;
+    height: 10px;
+    background-color: #28a745;
+    border-radius: 50%;
+    position: absolute;
+    bottom: 2px;
+    left: 35px;
+}
+
+.card-header .user_info {
+    display: flex;
+    flex-direction: column;
+}
+
+.card-header .user_info span {
+    font-weight: bold;
+}
+
+.card-header .user_info p {
+    margin: 0;
+}
+
+.card-body {
+    background-color: #f8f9fa;
+    flex-grow: 1;
+    overflow-y: auto;
+    padding: 15px;
+}
+
+.msg_card_body {
+    display: flex;
+    flex-direction: column;
+}
+
+.msg_card_body .d-flex {
+    display: flex;
+    align-items: flex-start;
+    margin-bottom: 10px;
+}
+
+.msg_card_body .img_cont_msg {
+    margin-right: 10px;
+}
+
+.msg_card_body .img_cont_msg img {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+}
+
+.msg_cotainer {
+    background-color: #82ccdd;
+    color: white;
+    padding: 10px;
+    border-radius: 10px;
+    position: relative;
+    max-width: 50%;
+}
+
+.msg_time {
+    position: absolute;
+    bottom: -15px;
+    right: 10px;
+    font-size: 10px;
+    color: #4c4c4c;
+}
+
+.card-footer {
+    padding: 10px;
+    background-color: #f0f2f5;
+    display: flex;
+    align-items: center;
+    border-top: 1px solid #e0e0e0;
+}
+
+.input-group {
+    display: flex;
+    width: 100%;
+}
+
+.input-group .type_msg {
+    flex-grow: 1;
+    border: none;
+    padding: 10px;
+    border-radius: 10px 0 0 10px;
+    outline: none;
+}
+
+.input-group .send_btn {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 10px;
+    border-radius: 0 10px 10px 0;
+    cursor: pointer;
+}
+
+.input-group .send_btn i {
+    font-size: 16px;
+}
+
+
+
+
+.msg_cotainer_send {
+    width: 300px;
+    background-color: #007bff; /* Blue background for the user message */
+    color: white; /* White text for the user message */
+    border-radius: 10px;
+    padding: 10px;
+    position: relative;
+    word-wrap: break-word;
+    margin-left: 40%;
+	
+	
+}
+
+/* Time stamp for the sent message */
+.msg_time_send {
+    position: absolute;
+    bottom: -20px; /* Adjust this value to fit the timestamp below the message */
+    right: 10px;
+    font-size: 0.85em;
+    color: gray;
+}
+
+
+</style>
+
+
+
+<div class="forum" id="chatbotDiv" >
+            <div class="row justify-content-center h-110">
+                <div class="col-xl-12 col-xl-12 chat">
+                    <div class="card">
+                        <div class="card-header msg_head">
+                            <div class="d-flex bd-highlight">
+                                <div class="img_cont">
+                                    <img src="https://i.ibb.co/tswBQhC/logo.png" class="rounded-circle user_img">
+                                    <span class="online_icon"></span>
+                                </div>
+                                <div class="user_info">
+                                    <span>ChatBot</span>
+                                    <p>Ask me About Your Mental Health!</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div id="messageFormeight" class="card-body msg_card_body" style="width: 76rem; max-height:100vh; overflow-y:auto;">
+                            <div class="d-flex justify-content-start mb-4">
+                                <div class="img_cont_msg">
+                                    <img src="https://i.ibb.co/tswBQhC/logo.png" class="rounded-circle user_img_msg">
+                                </div>
+                                <div class="msg_cotainer">
+                                    <p>Hello!! What's on your mind today? Whether you're feeling stressed, anxious, or just need someone to talk to, I'm here to listen and offer support. Let's start by exploring what's been occupying your thoughts lately.</p>
+                                    <span class="msg_time"><div id="current_time"></div></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-footer">
+                            <form id="messageArea" class="input-group">
+                                <input type="text" id="text" name="msg" placeholder="Type your message..." autocomplete="off" class="form-control type_msg" required/>
+                                <div class="input-group-append">
+                                    <button type="submit" id="send" class="input-group-text send_btn"><i class="fas fa-location-arrow"></i></button>
+                                </div>
+                            </form>
+							 <button id="end-chat-session" class="endChat">End Chat Session</button>
+               
+                        </div>
+                    </div>
+                </div>
+            </div>
+			 <div id="storedDataDisplay" style="position: absolute; top: 50%; left: 55%; transform:translate(-50%,-55%); background-color: white; padding: 50px 70px; border: 1px solid black; display: none;">
+			  <span class="close-icon" onclick="closeThisChatSession()">×</span>
+			 </div>
+    <style>
+	.endChat{
+	background:orange;
+	color:#fff;
+	cursor:pointer;
+	padding:10px 0;
+	width:150px;
+	transition:0.2s ease;
+	border:none;
+	outline:none;
+	margin-left:10px;
+	border-radius:5px;
+	}
+	.endChat:hover{
+		border:2px solid orange;
+		color:orange;
+		background:transparent;
+	}
+	 .close-icon {
+    position: absolute;
+    top: 10px;
+    right: 20px;
+    cursor: pointer;
+    font-size: 20px;
+    font-weight: bold;
+  }</style>
+            <script>
+        function getUserIdFromUrlUnique() {
+            const urlSearchParams = new URLSearchParams(window.location.search);
+            return urlSearchParams.get('objectId');
+        }
+
+        const userIdOfUser = getUserIdFromUrlUnique();
+        let depressionDetectionResponses = JSON.parse(localStorage.getItem('depressionDetectionResponses')) || [];
+
+        document.addEventListener("DOMContentLoaded", function() {
+            let chatbottext;
+            const rawTextArray = [];
+            let conversationHistory = [];
+
+            const messageArea = document.getElementById("messageArea");
+            messageArea.addEventListener("submit", function(event) {
+                // Prevent default form submission
+                event.preventDefault();
+
+                const date = new Date();
+                const hour = date.getHours();
+                const minute = date.getMinutes();
+                const str_time = hour + ":" + minute;
+
+                const rawText = document.getElementById("text").value;
+
+                if (!rawText) {
+                    alert("Please enter a message");
+                    return;
+                }
+
+                conversationHistory.push({ role: 'user', content: rawText });
+                console.log("Conversation History:", conversationHistory);
+
+                rawTextArray.push(rawText);
+                console.log("Raw Text Array:", rawTextArray);
+
+                const userHtml = `
+                  <div class="d-flex justify-content-end mb-4">
+                    <div class="msg_cotainer_send">${rawText}<span class="msg_time_send">${str_time}</span></div>
+                    <div class="img_cont_msg"><img src="https://i.ibb.co/t4cHsvf/user.jpg" class="rounded-circle user_img_msg"></div>
+                  </div>`;
+
+                document.getElementById("text").value = ""; // Clear the input field
+                document.getElementById("messageFormeight").appendChild(createHTMLElement(userHtml));
+
+                fetch('https://mental-health-backend-one.vercel.app/messages', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        userId: userIdOfUser,
+                        message: rawText,
+                        sender: "user"
+                    })
+                })
+                .then(response => {
+                    if (response.ok) {
+                        console.log('User message submitted successfully!');
+                    } else {
+                        console.log('Error submitting user message!');
+                    }
+                });
+
+                fetch('https://shahzaib201-llm-deployment-zerocost-api.hf.space/depression_detection', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ text: rawText })
+                })
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok');
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    console.log("Depression Detection Response:", data);
+                    depressionDetectionResponses.push(data);
+                    localStorage.setItem('depressionDetectionResponses', JSON.stringify(depressionDetectionResponses));
+                })
+                .catch(error => {
+                    console.error('Error sending prompt:', error);
+                    alert("There was an error sending your message. Please try again later.");
+                });
+
+                fetch('https://shahzaib201-carl-llama-13b.hf.space/llm_on_cpu', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ prompt: rawText })
+                })
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok');
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    console.log("Response Data:", data);
+                    chatbottext = data;
+
+                    conversationHistory.push({ role: 'chatbot', content: data });
+
+                    const botHtml = `
+                      <div class="d-flex justify-content-start mb-4">
+                        <div class="img_cont_msg"><img src="https://i.ibb.co/tswBQhC/logo.png" class="rounded-circle user_img_msg"></div>
+                        <div class="msg_cotainer">${data}<span class="msg_time">${str_time}</span></div>
+                      </div>`;
+
+                    document.getElementById("messageFormeight").appendChild(createHTMLElement(botHtml));
+
+                    fetch('https://mental-health-backend-one.vercel.app/messages', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({
+                            userId: userIdOfUser,
+                            message: chatbottext,
+                            sender: "chatbot"
+                        })
+                    })
+                    .then(response => {
+                        if (response.ok) {
+                            console.log('chatbot message submitted successfully!');
+                        } else {
+                            console.log('Error submitting assistant message!');
+                        }
+                    });
+                })
+                .catch(error => {
+                    console.error('Error sending prompt:', error);
+                    alert("There was an error sending your message. Please try again later.");
+                });
+            });
+
+            console.log("Raw Text Array Initialized:", rawTextArray);
+
+            document.getElementById("end-chat-session").addEventListener("click", function() {
+               const storedData = JSON.parse(localStorage.getItem('depressionDetectionResponses')) || [];
+                const storedDataDisplay = document.getElementById("storedDataDisplay");
+               
+                if (storedData.length > 0) {
+                    let totalScore = 0;
+                    storedData.forEach((response, index) => {
+                        const label = response[0].label;
+                        const score = response[0].score;
+                        totalScore += score;
+                        const message = `Message ${index + 1}: ${label} with a probability of ${(score * 100).toFixed(2)}%`;
+                        storedDataDisplay.innerHTML += `<p style="margin-bottom:15px;">${message}</p>`;
+                    });
+
+                    const averageScore = totalScore / storedData.length;
+                    const avgMessage = `Average probability of not depression: ${(averageScore * 100).toFixed(2)}%`;
+                    storedDataDisplay.innerHTML += `<p style="margin-bottom:15px;"><strong>${avgMessage}</strong></p>`;
+                } else {
+                    storedDataDisplay.innerHTML += '<p>You have not interacted with Mental Health Bot.</p>';
+                }
+
+                storedDataDisplay.style.display = 'block';
+            });
+        });
+
+        function createHTMLElement(htmlString) {
+            const parser = new DOMParser();
+            const doc = parser.parseFromString(htmlString, 'text/html');
+            return doc.body.firstChild;
+        }
+		  function closeThisChatSession() {
+        localStorage.removeItem('depressionDetectionResponses');
+        window.location.reload();
+    }
+    </script>
+
+
+</div>
+
+
+
+<div class="forum" id="chatHistoryDiv" style="position:relative; ">
+
+  <button onClick="hidescreen()" class="absButton absButtonCommunity" >Close</button>
+
+<h1>My Chat History!</h1>
+
+<div id="parentForChat">
+
+
+<!--<div id="newDateConversation">
+<h2>13/07/2024</h2>
+<p class="user">Aoa </p>
+<p class="chatbot">Wsalam</p>
+</div>
+-->
+
+
+</div>
+
+
+
+
+</div>
+<script>
+function getUserIdFromUrlFour() {
+    const urlSearchParams = new URLSearchParams(window.location.search);
+    return urlSearchParams.get('objectId');
+}
+
+async function fetchAndRenderMessages() {
+    const userId = getUserIdFromUrlFour();
+
+    try {
+        const response = await fetch(`https://mental-health-backend-one.vercel.app/messages/${userId}`);
+        const result = await response.json();
+
+        const parentDiv = document.getElementById('parentForChat');
+
+        if (result.status === 'success') {
+            if (result.data.length === 0) {
+                const noChatsHeader = document.createElement('h1');
+                noChatsHeader.textContent = 'No chats';
+                parentDiv.appendChild(noChatsHeader);
+            } else {
+                result.data.forEach(dayData => {
+                    const dateConversationDiv = document.createElement('div');
+                    dateConversationDiv.id = 'newDateConversation';
+
+                    const dateHeader = document.createElement('h2');
+                    const formattedDate = new Date(dayData.date).toLocaleDateString('en-GB'); // Format the date as DD/MM/YYYY
+                    dateHeader.textContent = formattedDate;
+
+                    dateConversationDiv.appendChild(dateHeader);
+
+                    dayData.conversations.forEach(convo => {
+                        const messageParagraph = document.createElement('p');
+                        messageParagraph.className = convo.sender; // Add class based on sender
+                        messageParagraph.textContent = convo.message;
+                        dateConversationDiv.appendChild(messageParagraph);
+                    });
+
+                    parentDiv.appendChild(dateConversationDiv);
+                });
+            }
+        } else if (result.status === 'error' && result.message === 'No conversations found for this user') {
+            const noChatsHeader = document.createElement('h1');
+            noChatsHeader.textContent = 'No chats Found!';
+            parentDiv.appendChild(noChatsHeader);
+        } else {
+            console.error('Failed to fetch messages');
+        }
+    } catch (error) {
+        console.error('Error:', error);
+    }
+}
+
+fetchAndRenderMessages();
+</script>
+
+
+
+<style>
+	#newDateConversation .user{
+		width:300px;
+		padding:20px;
+		background:#c0dbef;
+		border-radius:5px;
+		margin:10px 0;
+		margin-right:-500px;
+	}
+	#chatHistoryDiv h2{
+		margin-top:30px;
+		margin-bottom:10px;
+	}
+	#newDateConversation .chatbot{
+		width:300px;
+		padding:20px;
+		background:#ebe0b4;
+		border-radius:5px;
+		margin:10px 0;
+		margin-left:-450px;
+	}
+</style>
+
+
+
+<div class="forum" id="healthDiv" >
+<div style="background:#d7b0f4; display:flex;justify-content:center;align-items:center; flex-direction:column; width:50%; padding:30px; border-radius:5px;
+margin-top:3%;position:relative;">
+  <button onClick="hidescreen()" class="absButton"><i class="fa fa-times"></i></button>
+<h1>Mental Health Precautionary Measures!</h1>
+			<p style="text-align:justify; ">
+			Taking precautionary measures for mental health involves proactive strategies to maintain and enhance psychological well-being. Regular physical exercise, such as walking, swimming, or yoga, supports both physical and mental health by releasing endorphins and reducing stress. Practicing mindfulness and relaxation techniques, including meditation, deep breathing, and progressive muscle relaxation, helps manage stress and cultivate a sense of calm. Maintaining a balanced diet, rich in essential nutrients, promotes overall brain health and emotional stability. Ensuring adequate, quality sleep by following a consistent sleep schedule is crucial for mental health.
+
+Building and nurturing strong social connections with friends, family, and support networks provides emotional support and a sense of belonging. Engaging in hobbies and activities that bring joy and fulfillment can enhance life satisfaction and reduce stress. Limiting exposure to negative media and reducing screen time can prevent information overload and anxiety. Establishing healthy boundaries, managing time effectively, and setting realistic goals help prevent burnout and maintain balance.
+
+Regularly practicing self-reflection and self-care activities ensures ongoing mental health maintenance. Finally, seeking professional help when needed, such as therapy or counseling, provides access to effective strategies and support tailored to individual needs.
+			</p>
+		</div>
+</div>
+
+
+
+
+
+
+<div class="forum" id="divTwo" style="position:relative;">
+
+  <button onClick="hidescreen()" class="absButton absButtonCommunity" >Close</button>
+<h1>Welcome to the Emocare Blogs!</h1>
+		<div class="forumInput">
+		<form id="forumForm">		
+		<input type="text" id="forumQuestion" placeholder="Write here..." required>
+		<input type="submit" value="Submit">
+		</form>
+		</div>
+		
+		<div class="forumDispay" id="parentForm">
+			
+		</div>
+	
+	
+	
+	
+	
+	
+	
+	<script>
+function getUserIdFromUrlThree() {
+        const urlSearchParams = new URLSearchParams(window.location.search);
+        return urlSearchParams.get('objectId');
+    }
+
+	
+
+async function fetchUserName() {
+    const userId = getUserIdFromUrlThree();
+
+    try {
+      const response = await fetch(`https://mental-health-backend-one.vercel.app/api/users/${userId}`);
+
+        if (response.ok) {
+            console.log('response was ok');
+        }
+
+        const userData = await response.json();
+		const nameOfUser = document.getElementById('username'); 
+        const imageOfUser = document.getElementById('userimg'); 
+         
+		
+            nameOfUser.innerText = `${userData.name}`; 
+			imageOfUser.src = userData.url;
+		return userData.name;
+    } catch (error) {
+        console.error('Error fetching user data:', error);
+    }
+}
+
+fetchUserName();	
+const loadingDivForum = document.getElementById('loading-div-forum');
+
+	document.getElementById('forumForm').addEventListener('submit', async function (e) {
+    e.preventDefault();
+    const name = await fetchUserName();
+    const text = document.getElementById('forumQuestion').value; // Assuming 'text' is the ID of the input field for the forum text
+    const forumDate = new Date().toISOString(); // Get the current date and time in ISO format
+
+ loadingDivForum.style.display = "block";
+    // Send the form data to the backend
+    const response = await fetch('https://mental-health-backend-one.vercel.app/uploadforum', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            name: name,
+            text: text,
+            forumDate: forumDate
+        })
+    });
+
+    if (response.ok) {
+        alert('Forum submitted successfully!');
+		
+ loadingDivForum.style.display = "none";
+       location.reload();
+    } else {
+        alert('Error submitting forum!');
+		
+ loadingDivForum.style.display = "none";
+    }
+});
+
+// Function to fetch forum posts from the backend and render them dynamically
+async function fetchAndRenderForums() {
+    try {
+        const response = await fetch('https://mental-health-backend-one.vercel.app/myForums'); // Fetch forum posts from the backend
+        const forums = await response.json(); // Extract forum posts from the response
+
+        const parentDiv = document.getElementById('parentForm'); // Get the parent div where forum posts will be rendered
+
+        // Loop through each forum post and create HTML elements to display them
+        forums.forEach(forum => {
+            // Create forum box container
+            const forumBox = document.createElement('div');
+            forumBox.classList.add('forumBox');
+
+            // Create upper div for name and forum date
+            const upperDiv = document.createElement('div');
+            upperDiv.classList.add('upper');
+
+            // Create h2 element for name
+            const nameHeader = document.createElement('h2');
+            nameHeader.textContent = forum.name; // Set name text
+            upperDiv.appendChild(nameHeader);
+
+            // Create h3 element for forum date (format the date as needed)
+            const forumDateHeader = document.createElement('h3');
+            const formattedDate = new Date(forum.forumDate).toLocaleDateString('en-US'); // Format date as MM/DD/YYYY
+            forumDateHeader.textContent = formattedDate; // Set formatted date text
+            upperDiv.appendChild(forumDateHeader);
+
+            // Append upper div to forum box
+            forumBox.appendChild(upperDiv);
+
+            // Create lower div for forum text
+            const lowerDiv = document.createElement('div');
+            lowerDiv.classList.add('lower');
+
+            // Create p element for forum text
+            const textParagraph = document.createElement('p');
+            textParagraph.textContent = forum.text; // Set forum text
+            lowerDiv.appendChild(textParagraph);
+
+            // Append lower div to forum box
+            forumBox.appendChild(lowerDiv);
+
+            // Append forum box to parent div
+            parentDiv.appendChild(forumBox);
+        });
+    } catch (error) {
+        console.error('Error fetching and rendering forums:', error);
+    }
+}
+
+// Call fetchAndRenderForums function to fetch and render forum posts when the page loads
+fetchAndRenderForums();
+
+</script>	
+
+</div>
+
+          <div class="render-ghraph-data-container" id="divThree">
+            <div class="render-ghraph-data">
+                <div class="firstBox-div">
+                  <div class="flex-three-div">
+                    <div class="first-header-div">
+                      <p class="dash-h">Trend Analysis</p>
+                      <p class="overview-latest">Latest Overview</p>
+                    </div>
+                    <div class="seond-header-div">
+                      <a class="daily" href="">DAILY</a>
+                      <a class="all-c" href="">WEEKLY</a>
+                      <a class="all-c" href="">MONTHLY</a>
+                      <a class="all-c" href="">YEARLY</a>
+                    </div>
+                    <div class="third-header-div">
+                      <div class="first-online">
+                        <div class="color-c-1"></div>
+                        <p>Online</p>
+                      </div>
+                      <div class="first-store">
+                        <div class="color-c-2"></div>
+                        <p>Latest</p>
+                      </div>
+                    </div>
+                  </div>
+
+                 <div class="render-graphDIV">
+                    <div class="firstGRAPH_div">
+                    <div class="tt-earnings">
+                      <h2 id="highdepressionrate">Loading...</h2>
+                      <p>Highest Depression Rate</p>
+                    </div>
+                    <div class="current-month-sales">
+                      <h2 id="lowstressrate">Loading...</h2>
+                      <p>Lowest Stress Rate</p>
+                    </div>
+                    <div class="btnDiv">
+                      <button>Refresh Stats</button>
+                    </div>
+                    </div>
+                    <div class="countingDiv">
+                      <p>35</p>
+                      <p>30</p>
+                      <p>25</p>
+                      <p>20</p>
+                      <p>15</p>
+                      <p>10</p>
+                      <p>5</p>
+                      <p>0</p>
+                    </div>
+                    <div class="secondGRAPH_div">
+                      <table width="95%" border="1px solid rgb(229, 221, 221);" class="tableColor" style="border: 1px solid rgb(229, 221, 221);">
+                        <tr>
+                          <td>&nbsp;</td>
+                          <td>&nbsp;</td>
+                          <td>&nbsp;</td>
+                          <td>&nbsp;</td>
+                          <td>&nbsp;</td>
+                        </tr>
+                        <tr>
+                          <td>&nbsp;</td>
+                          <td>&nbsp;</td>
+                          <td>&nbsp;</td>
+                          <td>&nbsp;</td>
+                          <td>&nbsp;</td>
+                        </tr>
+                        <tr>
+                          <td>&nbsp;</td>
+                          <td>&nbsp;</td>
+                          <td>&nbsp;</td>
+                          <td>&nbsp;</td>
+                          <td>&nbsp;</td>
+                        </tr>
+                        <tr>
+                          <td>&nbsp;</td>
+                          <td>&nbsp;</td>
+                          <td>&nbsp;</td>
+                          <td>&nbsp;</td>
+                          <td>&nbsp;</td>
+                        </tr>
+                        <tr>
+                          <td>&nbsp;</td>
+                          <td>&nbsp;</td>
+                          <td>&nbsp;</td>
+                          <td>&nbsp;</td>
+                          <td>&nbsp;</td>
+                        </tr>
+                        <tr>
+                          <td>&nbsp;</td>
+                          <td>&nbsp;</td>
+                          <td>&nbsp;</td>
+                          <td>&nbsp;</td>
+                          <td>&nbsp;</td>
+                        </tr>
+                        <tr>
+                          <td>&nbsp;</td>
+                          <td>&nbsp;</td>
+                          <td>&nbsp;</td>
+                          <td>&nbsp;</td>
+                          <td>&nbsp;</td>
+                        </tr>
+                      </table>
+                      <div class="image-graph-div">
+                        <img src="graph-lines.png" alt="">
+                      </div>
+                      <div class="lastCOuntingDiv">
+                        <p class="firstCount-q">1</p>
+                        <p>2</p>
+                        <p>3</p>
+                        <p>4</p>
+                        <p>5</p>
+                        <p class="lastElement">6</p>
+                      </div>
+                      
+                    </div>
+                  </div>
+          
+                  <div class="iconsand-info-div">
+                    <div class="first-icon-div">
+                      <div class="FirsticonsCricle">
+                        <i class="fa-solid fa-bolt"></i>
+                      </div>
+                      <div class="firstTextInfoDiv">
+                        <p class="walt">Anxiety</p>
+                        <p class="boldearn" id="anxiety">Loading...</p>
+                      </div>
+                    </div>
+                    <div class="second-icon-div">
+                      <div class="SecondiconsCricle">
+                        <i class="fa-solid fa-bed"></i>
+                      </div>
+                      <div class="secondTextInfoDiv">
+                        <p class="refrel">Depression</p>
+                        <p class="boldearn" id="depression">Loading...</p>
+                      </div>
+                    </div>
+                    <div class="Third-cion_div" style="margin-right:30px;">
+                      <div class="ThirdIconsCricle">
+                        <i class="fa-solid fa-tachometer"></i>    </div>
+                        <div class="thirdTextInfoDiv">
+                          <p class="eastimate">Stress</p>
+                          <p class="boldearn" id="stress">Loading...</p>
+                        </div>
+                  
+                    </div>
+                    
+					
+                  </div>
+
+                </div>
+ <style>
+        #mycircle {
+            width: 170px;
+            height: 170px;
+            border-radius: 50%;
+            border: 10px solid white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 20px;
+			margin-left:25%;
+			margin-top:10%;
+			margin-bottom:15%;
+			position:relative;
+        }
+		.mywhitecircle{
+			position:absolute;
+			top:50%;
+			left:50%;
+			transform:translate(-50%,-50%);
+			width:110px;
+			height:110px;
+			background:#fff;
+			border-radius:50%;
+		}
+    </style>
+
+
+
+
+                <div class="secondBox-div">
+                    <p>Emotional Trends</p>
+                 <div class="circle-div" id="mycircle">
+                   <div class="mywhitecircle"></div>
+                 </div>
+                    <div class="three-number">
+                        <div class="firstnum">
+                            <h2 id="depressionpercent">Loading</h2>
+                            <div class="fc">
+                                <div class="ffc"></div>
+                                <span>Depression</span>
+                            </div>
+                        </div>
+                        <div class="secondnum">
+                            <h2 id="anxetypercents">Loading</h2>
+                           <div class="div">
+                            <div class="c"></div>
+                            <span>Anxiety</span>
+                           </div>
+                        </div>
+                        <div class="thirdnum">
+                            <h2 id="stresspercents">Loading</h2>
+                            <div class="thc">
+                                <div class="tc"></div>
+                                <span>Stress</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+    // Fetch data from the API
+    fetch('https://anxiety-depression1.p.rapidapi.com/records')
+    .then(response => response.json())
+    .then(data => {
+        // Initialize variables to store the highest values and their corresponding categories
+        let highestPositive = 0;
+        let highestNegative = 0;
+        let highestPending = 0;
+
+        // Iterate through the data to find the highest values
+        data.forEach(entry => {
+            // Update highest positive value and corresponding category
+            if(entry.positive > highestPositive){
+                highestPositive = entry.positive;
+                document.getElementById('anxiety').textContent = highestPositive;
+            }
+            // Update highest negative value and corresponding category
+            if(entry.negative > highestNegative){
+                highestNegative = entry.negative;
+                document.getElementById('stress').textContent = highestNegative;
+            }
+            // Update highest pending value and corresponding category
+            if(entry.pending > highestPending){
+                highestPending = entry.pending;
+                document.getElementById('depression').textContent = highestPending;
+            }
+        });
+
+        // Calculate the percentage of high depression rate, high anxiety rate, and low stress rate
+        const totalCases = data.length;
+        const highDepressionCases = data.filter(entry => entry.pending > 0).length;
+        const highAnxietyCases = data.filter(entry => entry.positive > 0).length;
+        const lowStressCases = data.filter(entry => entry.negative > 0).length;
+
+        const highDepressionRate = (highDepressionCases / totalCases) * 100;
+        const highAnxietyRate = (highAnxietyCases / totalCases) * 100;
+        const lowStressRate = (lowStressCases / totalCases) * 100;
+
+        // Normalize the percentages to ensure their sum equals 100%
+        const totalRate = highDepressionRate + highAnxietyRate + lowStressRate;
+        const depressionPercent = (highDepressionRate / totalRate) * 100;
+        const anxietyPercent = (highAnxietyRate / totalRate) * 100;
+        const stressPercent = (lowStressRate / totalRate) * 100;
+
+        // Update the corresponding <h2> elements with the calculated percentages
+        document.getElementById('highdepressionrate').textContent = depressionPercent.toFixed(2) + "%";
+        document.getElementById('lowstressrate').textContent = stressPercent.toFixed(2) + "%";
+
+        // Log the percentages to the console
+        console.log("Depression Percentage:", depressionPercent.toFixed(2) + "%");
+        console.log("Anxiety Percentage:", anxietyPercent.toFixed(2) + "%");
+        console.log("Stress Percentage:", stressPercent.toFixed(2) + "%");
+		
+		document.getElementById('depressionpercent').textContent = depressionPercent.toFixed(2) + "%";
+		document.getElementById('anxetypercents').textContent = anxietyPercent.toFixed(2) + "%";
+		document.getElementById('stresspercents').textContent = stressPercent.toFixed(2) + "%";
+		
+const depressionAngled = depressionPercent.toFixed(2) + "%";
+const anxietyAngled = anxietyPercent.toFixed(2) + "%";
+const stressAngled = stressPercent.toFixed(2) + "%";
+
+// Set the circle background color dynamically based on the angles
+const circle = document.getElementById('mycircle');
+circle.style.background = `conic-gradient(
+    #ff5e13 0% ${depressionAngled}, 
+    #1a9efe ${depressionAngled} ${parseFloat(depressionAngled) + parseFloat(anxietyAngled)}%, 
+    #ffc700 ${parseFloat(depressionAngled) + parseFloat(anxietyAngled)}% ${parseFloat(depressionAngled) + parseFloat(anxietyAngled) + parseFloat(stressAngled)}%
+)`;
+
+    })
+    .catch(error => console.error('Error fetching data:', error));
+});
+
+</script>
+                      
+       <div class="main-cards_DIV">
+        <div class="multpleCards_div">
+           <div class="cardTwo" style="background:#c0dbef; cursor:pointer;" onclick="anxietyShow()">
+            <p>Standard Guidelines for reducing</p>
+            <div class="second-cardInfoBox_DV">
+              <h2 style="color:#34a4fe; font-size:20px;">Anxiety</h2>
+            
+            </div>
+          </div>
+         <div class="cardTwo" onclick="depressionShow()" style="cursor:pointer;">
+            <p>Standard Guidelines for reducing</p>
+            <div class="second-cardInfoBox_DV">
+              <h2 style="font-size:20px;">Depression</h2>
+            
+            </div>
+          </div>
+          <div class="cardThree" onclick="stressShow()" style="cursor:pointer;">
+            <p>Standard Guidelines for reducing</p>
+            <div class="third-cardInfoBox_DV">
+              <h2 style="font-size:20px;">Stress</h2>
+             </div>
+            </div>
+           <div class="cardTwo" style="background:#d7b0f4; cursor:pointer;" onclick="healthShow()">
+            <p>Control</p>
+            <div class="second-cardInfoBox_DV">
+              <h2 style="color:#9521fe;font-size:20px;">Health Precautionary Measures</h2>
+            
+            </div>
+          </div>
+         
+		 
+        </div>
+       </div>
+          </div>
+    </div>
+	
+	
+	<style>
+		.editProfile{
+			position:absolute;
+			top:50%;
+			left:55%;
+			transform:translate(-50%,-50%);
+			width:600px;
+			padding:50px;
+			background:#fff;
+			box-shadow:0 10px 20px rgba(0,0,0,0.4);
+			display:none;
+		}
+		.editProfile input{
+			padding:7px;
+			border:2px solid crimson;
+			outline:none;
+			margin-bottom:15px;
+			width:80%;
+		}
+		.editProfile .btn{
+			background:crimson;
+			color:#fff;
+		}
+		.editProfile h1{
+			margin-bottom:20px;
+		}
+	</style>
+	
+	
+	<style>
+ .loading-div {
+            position: fixed;
+            top: 10%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+          font-weight:600;
+			color:#fff;
+			z-index:9999;
+			font-size:20px;
+			background:crimson;
+			padding:10px 20px;
+			box-shadow:0 5px 10px rgba(0,0,0,0.2);
+			display:none;
+			
+}
+
+</style>
+
+<div class="loading-div" id="loading-div">
+        Updating...
+    </div>
+
+	<div class="editProfile" id="divOne">
+	
+  <button onClick="hidescreen()" class="absButton"><i class="fa fa-times"></i></button>
+	<center>	 <h1>Update your Profile!</h1>
+            </center>     
+				 <form id="updateForm" style="display:flex;flex-direction:column; justify-content:center; align-items:center; width:100%;"> 
+				
+				<input type="text" name="name" placeholder="Write updated name" id="name" required>
+                
+				<input type="email" name="email" placeholder="Write updated email" id="email" required>
+                <input type="password" name="password" placeholder="Write updated password" id="password" required>
+				
+                <input type="submit" class="btn btn2" style="width:30%;" value="Update"> </form>
+				
+	</div>
+	
+	<script>
+  document.addEventListener('DOMContentLoaded', function() {
+   function getUserIdFromUrlss() {
+        const urlSearchParams = new URLSearchParams(window.location.search);
+        return urlSearchParams.get('objectId');
+    }
+
+	
+
+    const userIds = getUserIdFromUrlss();
+const loadingDiv = document.getElementById('loading-div');
+
+    const updateForm = document.getElementById('updateForm');
+
+    updateForm.addEventListener('submit', async function(event) {
+      event.preventDefault(); // Prevent the default form submission behavior
+
+      const name = document.getElementById('name').value;
+      const email = document.getElementById('email').value;
+      const password = document.getElementById('password').value;
+
+      // Create an object with the data we want to send
+      const userData = {
+        name: name,
+        email: email,
+        password: password
+      };
+
+      try {
+	   loadingDiv.style.display = 'block';
+   
+        // Send the PUT request using fetch with async/await
+        const response = await fetch(`https://mental-health-backend-one.vercel.app/api/updateUser/${userIds}`, {
+          method: 'PUT',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(userData) // Convert the JavaScript object to a JSON string
+        });
+loadingDiv.style.display = 'none';
+   
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+
+        const data = await response.json(); // Parse JSON response into native JavaScript object
+        alert('Profile updated successfully!');
+        console.log(data); // Log data to the console for debugging
+		location.reload();
+      } catch (error) {
+        console.error('Error:', error);
+        alert('Error updating profile!');
+      }
+    });
+  });
+  
+const dashboardDivOne = document.getElementById("divOne");
+const dashboardDivTwo = document.getElementById("divTwo");
+const dashboardDivThree = document.getElementById("divThree");
+
+
+const anxietyDivOne = document.getElementById("anxietyDiv");
+const depressionDivOne = document.getElementById("depressionDiv");
+const stressDivOne = document.getElementById("stressDiv");
+const healthDivOne = document.getElementById("healthDiv");
+
+const chatHistory = document.getElementById("chatHistoryDiv");
+const chatbotArea = document.getElementById("chatbotDiv");
+
+
+function editButton(){
+	
+	 dashboardDivOne.style.display = "block";
+	  
+}
+
+function communityButton(){
+	
+	 dashboardDivOne.style.display = "none";
+	 dashboardDivThree.style.display = "none";
+	 dashboardDivTwo.style.display = "flex";
+	  
+	  	depressionDivOne.style.display = "none";
+	stressDivOne.style.display = "none";
+	healthDivOne.style.display = "none";
+	anxietyDivOne.style.display = "none";
+	
+	chatHistory.style.display = "none";
+	chatbotArea.style.display = "none";
+
+}
+
+
+function chatHistoryButton(){
+	
+	 dashboardDivOne.style.display = "none";
+	 dashboardDivThree.style.display = "none";
+	 dashboardDivTwo.style.display = "none";
+	  
+	 depressionDivOne.style.display = "none";
+	stressDivOne.style.display = "none";
+	healthDivOne.style.display = "none";
+	anxietyDivOne.style.display = "none";
+
+	chatHistory.style.display = "flex";
+	chatbotArea.style.display = "none";
+}
+
+function homeButton(){
+	
+	 dashboardDivOne.style.display = "none";
+	 dashboardDivThree.style.display = "block";
+	 dashboardDivTwo.style.display = "none";
+	
+	depressionDivOne.style.display = "none";
+	stressDivOne.style.display = "none";
+	healthDivOne.style.display = "none";
+	anxietyDivOne.style.display = "none";
+	
+	chatHistory.style.display = "none";
+	chatbotArea.style.display = "none";
+	
+}
+
+function hidescreen(){
+	
+	 dashboardDivOne.style.display = "none";
+	 dashboardDivThree.style.display = "block";
+	 dashboardDivTwo.style.display = "none";
+	
+	depressionDivOne.style.display = "none";
+	stressDivOne.style.display = "none";
+	healthDivOne.style.display = "none";
+	anxietyDivOne.style.display = "none";
+	
+	chatHistory.style.display = "none";
+	chatbotArea.style.display = "none";
+	
+}
+
+function editButton(){
+	
+	 dashboardDivOne.style.display = "block";
+	  
+}
+
+
+
+function anxietyShow(){
+	anxietyDivOne.style.display = "flex";
+	 dashboardDivOne.style.display = "none";
+	 dashboardDivThree.style.display = "none";
+	 dashboardDivTwo.style.display = "none";
+	
+	depressionDivOne.style.display = "none";
+	stressDivOne.style.display = "none";
+	healthDivOne.style.display = "none";
+	
+	chatHistory.style.display = "none";
+	chatbotArea.style.display = "none";
+	
+	
+	
+}
+
+function depressionShow(){
+	depressionDivOne.style.display = "flex";
+	 dashboardDivOne.style.display = "none";
+	 dashboardDivThree.style.display = "none";
+	 dashboardDivTwo.style.display = "none";
+	stressDivOne.style.display = "none";
+	healthDivOne.style.display = "none";
+	anxietyDivOne.style.display = "none";
+	
+	chatHistory.style.display = "none";
+	chatbotArea.style.display = "none";
+
+}
+
+function stressShow(){
+	stressDivOne.style.display = "flex";
+	 dashboardDivOne.style.display = "none";
+	 dashboardDivThree.style.display = "none";
+	 dashboardDivTwo.style.display = "none";
+		depressionDivOne.style.display = "none";
+	healthDivOne.style.display = "none";
+	anxietyDivOne.style.display = "none";
+	
+	chatHistory.style.display = "none";
+	chatbotArea.style.display = "none";
+
+}
+
+function healthShow(){
+	healthDivOne.style.display = "flex";
+	 dashboardDivOne.style.display = "none";
+	 dashboardDivThree.style.display = "none";
+	 dashboardDivTwo.style.display = "none";
+		depressionDivOne.style.display = "none";
+	stressDivOne.style.display = "none";
+	anxietyDivOne.style.display = "none";
+	
+	chatHistory.style.display = "none";
+	chatbotArea.style.display = "none";
+
+}
+
+
+
+
+function chatShow(){
+	healthDivOne.style.display = "none";
+	 dashboardDivOne.style.display = "none";
+	 dashboardDivThree.style.display = "none";
+	 dashboardDivTwo.style.display = "none";
+		depressionDivOne.style.display = "none";
+	stressDivOne.style.display = "none";
+	anxietyDivOne.style.display = "none";
+	
+	chatHistory.style.display = "none";
+	chatbotArea.style.display = "flex";
+
+}
+
+</script>
+
+<!--
+          <div class="mainlasttwoDivs">
+            <div class="lastTwoD">
+              <div class="firstLastD">
+                <p class="recent-activ">Recent Activities</p>
+                <div class="first-task">
+                  <p class="minutesAgo">42 Minutes ago</p>
+                  <div class="firsttask-innerDiv">
+                    <div class="style-boxOne">
+                      <i class="fa-solid fa-gift"></i>
+                    </div>
+                  <div class="classDiv" style="margin-left: 1rem; margin-top: .6rem;">
+                    <p>Task Updated</p>
+                    <p  style="font-size: 10px;"><span>Nikolai</span>  Updated a Task</p>
+                  </div>
+                  </div>
+                </div>
+                <div class="second-task">
+                  <p  class="minutesAgo">1 Day ago</p>
+                  <div class="secondtask-innerDiv">
+                    <div class="style-boxTwo">
+                      <i class="fa-solid fa-wallet"></i>
+                    </div>
+                 <div class="classDiv" style="margin-left: 1rem; margin-top: .6rem;">
+                  <p>Deal Added</p>
+                  <p  style="font-size: 10px;"><span>Panshi</span>  Updated a Task</p>
+                 </div>
+                  </div>
+                </div>
+                <div class="third-task">
+                  <p  class="minutesAgo">42 Minutes ago</p>
+                  <div class="thirdtask-innerDiv">
+                    <div class="style-boxThree">
+                      <i class="fa-solid fa-comment-medical"></i>
+                    </div>
+                <div class="classDiv" style="margin-left: 1rem; margin-top: .6rem;">
+                  <p>Published Article</p>
+                  <p  style="font-size: 10px;"><span>Rashel</span>  Public Article</p>
+                </div>
+                  </div>
+                </div>
+                <div class="fourth-task">
+                  <p  class="minutesAgo">1 Day ago</p>
+                  <div class="fourthtask-innerDiv">
+                    <div class="style-boxFour">
+                      <i class="fa-sharp fa-solid fa-fire"></i>
+                    </div>
+                  <div class="classDiv" style="margin-left: 1rem; margin-top: .6rem;">
+                    <p>Dock Updated</p>
+                    <p  style="font-size: 10px;"><span>reshmi</span>  Updated a Doc</p>
+                  </div>
+                  </div>
+                </div>
+                <div class="fifth-task">
+                  <p  class="minutesAgo">1 Day ago</p>
+                  <div class="fifthtask-innerDiv">
+                    <div class="style-boxFive">
+                      <i class="fa-sharp fa-solid fa-globe"></i>
+                    </div>
+                    <div class="classDiv" style="margin-left: 1rem; margin-top: .6rem;">
+                      <p>Replied Comment</p>
+                    <p style="font-size: 10px;"><span>jenathon</span>  Added a Comment</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="secondLastD">
+                <div class="headingtwo">
+                  <p>Overview Status</p>
+                  <span>Overview Of Latest Month</span>
+                  <div class="twoMainInnerDivs">
+                    <div class="firstinnerChildDiv">
+                     <div class="ffffff">
+                      <button><i class="fa-sharp fa-solid fa-plus"></i> Add</button>
+                      <i class="fa-solid fa-cart-plus" id="mainFirst"></i>
+                      <i class="fa-solid fa-trash" id="mainSecond"></i>
+                      <i class="fa-sharp fa-solid fa-dumpster-fire" id="mainThird"></i>
+                     </div>
+                     <div class="sssss">
+                      <input type="text" placeholder="Search">
+                      <i class="fa-solid fa-circle-minus" id="mainFourth"></i>
+                     </div>
+                    </div>
+                    <div class="secondinnerChildDiv">
+                  <div style="width: 95%; margin-left: 1rem;">
+                    <div class="inner-innerDiv">
+                      <p>INNVOICE</p>
+                      <p>CUSTOMERS</p>
+                      <p>FROM</p>
+                      <p>PRICE</p>
+                      <p>STATUS</p>
+                    </div>
+                    <div class="inner-innerDiv" style="background: none;">
+                      <p>12386</p>
+                      <p>Charly Dues</p>
+                      <p>Brazil</p>
+                      <p>$299</p>
+                     <button class="lasttwoBtnf">Process</button>
+                    </div>
+                    <div class="inner-innerDiv" style="background: none;">
+                      <p>12386</p>
+                      <p>Marko</p>
+                      <p>Italy</p>
+                      <p>$2642</p>
+                      <button class="lastBTnOn">Open</button>
+                    </div>
+                  </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+-->
+
+  </body>
+</html>

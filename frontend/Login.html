@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Emocare</title>
+    <link rel="icon" href="img/favicon.ico" type="image/x-icons">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" 
+    integrity="sha512-PgQMlq+nqFLV4ylk1gwUOgm6CtIIXkKwaIHp/PAIWHzig/lKZSEGKEysh0TCVbHJXCLN7WetD8TFecIky75ZfQ==" 
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+<body>
+    <section class="background" id="myhome">
+        <nav class="navbar">
+            <a href="#" class="logo"><img src="img/logo.png" alt=""></a>
+            <div class="navbar-items h-class">
+                <ul class="nav v-class">
+                    <li><a href="#myhome">HOME</a></li>
+                    <li><a href="#myservices">SERVICES</a></li>
+                    <li><a href="#myabout">ABOUT</a></li>
+                    <li><a href="#myfeatures">FEATURES</a></li>
+                    <li><a href="#mycontact">CONTACT</a></li>
+                </ul>
+            </div>
+            <div class="burger">&#9776</div>
+        </nav>
+        <!-- _________main-sec -->
+        <div class="main">
+            <div class="text-box">
+    <h1>Your Health is Our First Priority</h1>
+    <p>At AI EmoCare, we are committed to providing you with the best mental health support. Our innovative platform combines advanced AI technology with personalized care to ensure your well-being. Whether you need immediate assistance or long-term support, we are here to help you every step of the way.</p>
+    <a href="" class="btn btn1">Visit to Know More</a>
+</div>
+
+<div class="box">
+                <h1>Access the dashboard!</h1>
+                <form id="loginForm" style="display:flex;flex-direction:column; justify-content:center; align-items:center; width:100%;"> 
+				<input type="email" name="email" placeholder="email" id="email" required>
+                <input type="password" name="password" placeholder="password" id="password" required>
+                <input type="submit" class="btn btn2" style="width:30%;" value="Sign-in"> </form>
+				<p style="margin-top:20px;">OR</p>
+				<a href="registerPage.html" class="btn btn2" style="background:transparent; color:#fff; font-weight:700;">Sign-up here</a>
+            </div>
+        </div>
+    </section>
+	
+	
+	
+	<style>
+ .loading-div {
+            position: fixed;
+            top: 10%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+          font-weight:600;
+			color:#fff;
+			z-index:9999;
+			font-size:20px;
+			display:none;
+			
+}
+
+</style>
+
+<div class="loading-div" id="loading-div">
+        Validating...
+    </div>
+
+
+	
+<script>
+const loadingDiv = document.getElementById('loading-div');
+const loginForm = document.getElementById('loginForm');
+
+loginForm.addEventListener('submit', async (event) => {
+  event.preventDefault();
+
+  const email = document.getElementById('email').value;
+  const password = document.getElementById('password').value;
+  
+  if (email.trim() === '') {
+    alert('Please enter your email');
+    return;
+  }
+  
+  if (password.trim() === '') {
+    alert('Please enter your password');
+    return;
+  }
+
+  try {
+    loadingDiv.style.display = 'block';
+    const response = await fetch('https://mental-health-backend-one.vercel.app/api/login', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        email: email,
+        password: password,
+      }),
+    });
+   loadingDiv.style.display = 'none';
+    const data = await response.json();
+    if (response.ok) {
+      alert(data.message);
+       window.location.href = `Dashboard/index.html?loginSuccessful=true&objectId=${data.objectId}`;
+    } else {
+      alert(data.message);
+    }
+  } catch (error) {
+    console.error('Error:', error);
+    console.log('Response data:', data);
+    alert('Internal server error');
+  }
+});
+
+</script>
+
+<!-- ____________services -->
+<section class="services" id="myservices">
+    <h1 class="heading">Our services</h1>
+    <div class="row">
+
+        <div class="box1">
+            <i class="fas fa-brain"></i>
+            <h2 >Mental Health Assessment</h2>
+            <p>Utilize advanced AI algorithms to provide an in-depth analysis of your mental health status.</p>
+        </div>
+        <div class="box1">
+            <i class="fas fa-comments"></i>
+            <h2>Personalized Therapy Sessions</h2>
+            <p>Engage in one-on-one therapy sessions tailored to your unique emotional needs and preferences.</p>
+        </div>
+        <div class="box1">
+            <i class="fas fa-robot"></i>
+            <h2>AI-Driven Insights</h2>
+            <p>Receive AI-generated insights and recommendations based on real-time data and sentiment analysis.</p>
+        </div>
+    </div>
+
+    <div class="row">
+
+        <div class="box1">
+            <i class="fas fa-phone-alt"></i>
+            <h2>24/7 Helpline</h2>
+            <p>Access immediate support anytime through our dedicated 24/7 helpline service.</p>
+        </div>
+        <div class="box1">
+            <i class="fas fa-user-friends"></i>
+            <h2>Community Support</h2>
+            <p>Join a supportive community to share experiences and find mutual support from peers.</p>
+        </div>
+        <div class="box1">
+            <i class="fas fa-laptop-medical"></i>
+            <h2>Remote Monitoring</h2>
+            <p>Benefit from continuous remote monitoring to track your mental health progress.</p>
+        </div>
+    </div>
+</section>
+
+   <section class="quality">
+    <h1 class="heading">Why Choose Our Healthcare Platform</h1>
+    <div class="row">
+        <div class="box2">
+            <i class="fas fa-user-plus"></i>
+            <h2>24/7 Availability</h2>
+            <p>Our platform is accessible around the clock, ensuring you get the support you need, whenever you need it.</p>
+        </div>
+        <div class="box2">
+            <i class="fas fa-hand-holding-heart"></i>
+            <h2>Comprehensive Care</h2>
+            <p>We provide a holistic approach to mental health, addressing all aspects of your well-being.</p>
+        </div>
+        <div class="box2">
+            <i class="fas fa-award"></i>
+            <h2>Quality Assurance</h2>
+            <p>Our services adhere to the highest standards of quality and effectiveness, ensuring you receive the best care.</p>
+        </div>
+    </div>
+</section><!-- _______________about -->
+<section class="about" id="myabout">
+    <h1 class="heading">About Us</h1>
+    <div class="row row1">
+        <div class="left">
+            <img src="img/pic2.jpg" alt="">
+        </div>
+        <div class="right">
+            <h1>Inspiring Hope, Innovating Health</h1>
+            <p>At AI EmoCare, we are dedicated to transforming mental health care through innovative technology and compassionate support. Our platform combines the latest in AI and machine learning with personalized care to provide comprehensive mental health solutions. We believe in early intervention, proactive support, and the power of community to foster resilience and well-being.</p>
+            <p>Our mission is to make mental health care accessible to everyone, especially in underserved areas. By leveraging AI-driven insights and a user-friendly interface, we create a safe and welcoming environment where users can express themselves freely and receive the care they need. Join us on our journey to build a healthier, more resilient society.</p>
+            <button class="btn btn3">Explore More</button>
+        </div>
+    </div>
+</section>
+
+    <!-- ___________departments -->
+    <section class="department" id="myfeatures">
+        <h1 class="heading">our features</h1>
+        <div class="row">
+             <div class="box3">
+                <h1>AI Recommendations</h1>
+             </div>
+             <div class="box3">
+                <h1>Secure Communication</h1>
+             </div>
+             <div class="box3">
+                <h1>Community Support</h1>
+             </div>
+             
+        </div>
+    </section>
+ 
+
+    <section class="department" id="mycontact">
+        <h1 class="heading">contact us</h1>
+        <div class="row">
+     	
+		<div class="contactss containerss" >
+           <form id="contactForm">
+    <div class="form">
+       <div class="form-txt" data-aos="zoom-in">
+    <h1 class="oneone contactheading" style="margin-top:11%;">Let's Connect!</h1>
+    <span class="oneone">Reach out to us for personalized mental health support, expert advice, and to learn more about our innovative AI-driven solutions. Your well-being is our priority.</span>
+<h1 class="oneone contactheading" style="font-size:23px; margin-top:5%;" >Email</h1>
+    <span class="oneone">wajih786hassan@gmail.com</span>
+<h1 class="oneone contactheading" style="font-size:23px; margin-top:5%;" >Phone</h1>
+    <span class="oneone">03410279181</span> 
+</div>
+
+        <div class="form-details" data-aos="zoom-in" >
+		    <input type="text" name="name" id="namecontact" placeholder="Name" required>
+            <input type="email" name="email" id="emailcontact" placeholder="Email" required style="text-transform: none;">
+			<input type="text" name="subject" placeholder="Subject" required id="subjectcontact" style="width:75%; margin-top:-20px;">
+
+            <textarea name="message" id="messagecontact" cols="52" rows="7" placeholder="Message" required></textarea>
+        <button type="submit" class="btn-submit" id="newOrderForm" style="color:#fff; background:#2e6476;">Submit Message</button>
+			
+		 </div>
+    </div>
+</form>
+
+        </div>    
+        </div>
+    </section>
+ 
+
+ <!-- _______________footer -->
+    <footer>
+        <div class="footer-sec">
+           <p class="para" style="background:transparent;">copyright @ AI-Emocare</p>
+        </div>
+        <p class="para">Contributors: Wajih ul Hassan, Ahlam Azam & Shahzeb Raheel</p>
+    </footer>
+   
+	
+	
+	
+	
+	
+	
+	
+
+<style>
+.loading-container {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right:0;
+  bottom:0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 9999;
+  align-items: center;
+  justify-content: center;
+}
+
+.loading-spinner {
+  border: 4px solid rgba(255, 255, 255, 0.3);
+  border-top: 4px solid #ffffff;
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
+  animation: spin 1s linear infinite;
+  position:absolute;
+  top:50%;
+  left:50%;
+  transform:translate(-50%,-50%);
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}</style>
+
+
+<!-- Add this div for the loading animation -->
+<div id="loadingAnimation" class="loading-container">
+  <div class="loading-spinner"></div>
+</div>
+
+<script>
+
+var userNamecontact = document.getElementById("namecontact");
+var userEmailcontact = document.getElementById("emailcontact");
+var userMessagecontact = document.getElementById("messagecontact");
+var userSubjectcontact = document.getElementById("subjectcontact");
+var orderFormSubmit = document.getElementById("newOrderForm");
+var loadingAnimation = document.getElementById("loadingAnimation");
+const body = document.querySelector("body");
+
+orderFormSubmit.addEventListener("click", function(event) {
+  event.preventDefault(); 
+  
+
+  loadingAnimation.style.display = "block";
+
+  var formData = {
+    name: userNamecontact.value,
+    email: userEmailcontact.value,
+    message: userMessagecontact.value,
+    subject: userSubjectcontact.value,
+  };
+
+  fetch("https://mental-health-backend-one.vercel.app/send-data-emocare", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify(formData)
+  })
+  .then(function(response) {
+    if (response.ok) {
+      alert("Message submitted successfully.");
+      loadingAnimation.style.display = "none";
+      location.reload();
+    } else {
+      console.log("Error submitting message.");
+      loadingAnimation.style.display = "none";
+    }
+  })
+  .catch(function(error) {
+    console.log("Error submitting message.");
+    loadingAnimation.style.display = "none";
+    console.error(error);
+  });
+});
+
+</script>
+
+
+
+	
+	
+	
+	<script src="index.js"></script>
+</body>
+</html>
